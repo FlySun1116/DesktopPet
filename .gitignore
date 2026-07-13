@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+build/
+dist/
+release/
+logs/*.log
+reports/*.json
+*.spec.bak
+
+# 本地用户配置和生成缓存不得提交
+user_config.json
+.cache/
+
+# 私密真人参考照片只保留在本地，不上传到代码仓库
+images/
+reference_contact_sheet.jpg
+artwork/hatch_run/references/reference-*.jpg

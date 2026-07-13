@@ -1,0 +1,88 @@
+{
+  "id": "main_character",
+  "name": "ZhangLe",
+  "version": "1.0.0",
+  "placeholder": false,
+  "canvas_size": [
+    768,
+    768
+  ],
+  "anchor": "bottom_center",
+  "default_scale": 0.36,
+  "animations": {
+    "idle": {
+      "folder": "idle",
+      "fps": 7,
+      "loop": true,
+      "placeholder": false,
+      "asset_status": "generated_reviewed"
+    },
+    "walk": {
+      "folder": "walk",
+      "fps": 10,
+      "loop": true,
+      "placeholder": false,
+      "asset_status": "generated_reviewed"
+    },
+    "sit": {
+      "folder": "sit",
+      "fps": 8,
+      "loop": false,
+      "placeholder": false,
+      "asset_status": "generated_reviewed"
+    },
+    "sleep": {
+      "folder": "sleep",
+      "fps": 5,
+      "loop": true,
+      "placeholder": false,
+      "asset_status": "generated_reviewed"
+    },
+    "wave": {
+      "folder": "wave",
+      "fps": 9,
+      "loop": false,
+      "placeholder": false,
+      "asset_status": "generated_reviewed"
+    },
+    "happy": {
+      "folder": "happy",
+      "fps": 10,
+      "loop": false,
+      "placeholder": false,
+      "asset_status": "generated_reviewed"
+    },
+    "surprised": {
+      "folder": "surprised",
+      "fps": 10,
+      "loop": false,
+      "placeholder": false,
+      "asset_status": "generated_reviewed"
+    },
+    "dragged": {
+      "folder": "dragged",
+      "fps": 6,
+      "loop": true,
+      "placeholder": false,
+      "asset_status": "generated_reviewed"
+    },
+    "fall": {
+      "folder": "fall",
+      "fps": 12,
+      "loop": false,
+      "placeholder": false,
+      "asset_status": "generated_reviewed"
+    }
+  },
+  "asset_status": {
+    "idle": "generated_reviewed",
+    "walk": "generated_reviewed",
+    "sit": "generated_reviewed",
+    "sleep": "generated_reviewed",
+    "wave": "generated_reviewed",
+    "happy": "generated_reviewed",
+    "surprised": "generated_reviewed",
+    "dragged": "generated_reviewed",
+    "fall": "generated_reviewed"
+  }
+}

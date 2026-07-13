@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "chroma_key": {
+    "hex": "#00FFFF",
+    "rgb": [
+      0,
+      255,
+      255
+    ],
+    "threshold": 96.0
+  },
+  "rows": [
+    {
+      "state": "review",
+      "frames": [
+        "G:\\Project\\DesktopPet\\artwork\\hatch_run\\qa\\rows\\review\\frames\\review\\00.png",
+        "G:\\Project\\DesktopPet\\artwork\\hatch_run\\qa\\rows\\review\\frames\\review\\01.png",
+        "G:\\Project\\DesktopPet\\artwork\\hatch_run\\qa\\rows\\review\\frames\\review\\02.png",
+        "G:\\Project\\DesktopPet\\artwork\\hatch_run\\qa\\rows\\review\\frames\\review\\03.png",
+        "G:\\Project\\DesktopPet\\artwork\\hatch_run\\qa\\rows\\review\\frames\\review\\04.png",
+        "G:\\Project\\DesktopPet\\artwork\\hatch_run\\qa\\rows\\review\\frames\\review\\05.png"
+      ],
+      "method": "components"
+    }
+  ]
+}

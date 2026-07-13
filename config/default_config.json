@@ -1,0 +1,15 @@
+{
+  "character_scale": 0.36,
+  "animation_speed": 1.0,
+  "move_speed": 100,
+  "auto_move": true,
+  "always_on_top": true,
+  "start_on_boot": false,
+  "sound_enabled": false,
+  "last_position": null,
+  "current_screen": null,
+  "behavior": {
+    "interval_ms": 7000,
+    "probabilities": {"idle": 5, "walk": 5, "sit": 2, "sleep": 1, "wave": 1}
+  }
+}
