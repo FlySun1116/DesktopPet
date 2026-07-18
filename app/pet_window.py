@@ -5,6 +5,11 @@ from PySide6.QtWidgets import QLabel, QMenu, QWidget, QMessageBox
 
 from .animation_player import AnimationPlayer
 from .constants import PetState
+from .platform_window import (
+    apply_overlay_window_attributes,
+    elevate_overlay_window,
+    overlay_window_flags,
+)
 from .screen_manager import clamp_position, screen_for_point
 
 
@@ -22,19 +27,39 @@ class PetWindow(QWidget):
         self.player.finished.connect(lambda _name: self.set_state(PetState.IDLE))
         self.walk_timer = QTimer(self, timeout=self._walk_step)
         self.click_timer = QTimer(self, singleShot=True, interval=220, timeout=self._on_single_click)
-        self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setWindowFlag(Qt.FramelessWindowHint); self.setWindowFlag(Qt.Tool)
+        self._apply_window_chrome(first=True)
         self.apply_settings(first=True)
 
     def bind_state_machine(self, machine):
         self.state_machine = machine
         machine.changed.connect(self._state_changed)
 
+    def _apply_window_chrome(self, first: bool = False) -> None:
+        """Visible above other apps, but never keep keyboard/app focus."""
+        on_top = bool(self.config.get("always_on_top", True))
+        self.setWindowFlags(overlay_window_flags(on_top=on_top, accept_focus=False))
+        apply_overlay_window_attributes(self, on_top=on_top, accept_focus=False)
+        if not first and self.isVisible():
+            self.show()
+            elevate_overlay_window(self, activate=False)
+
     def apply_settings(self, first=False):
         self.player.speed = float(self.config.get("animation_speed", 1.0))
-        self.setWindowFlag(Qt.WindowStaysOnTopHint, bool(self.config.get("always_on_top", True)))
-        if not first: self.show()
+        self._apply_window_chrome(first=first)
+        if not first:
+            self.show()
+            elevate_overlay_window(self, activate=False)
         self.player.play(self.player.name, self.player.mirrored)
+
+    def moveEvent(self, event):
+        super().moveEvent(event)
+        if self.application:
+            self.application.follow_chat()
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        if bool(self.config.get("always_on_top", True)):
+            QTimer.singleShot(0, lambda: elevate_overlay_window(self, activate=False))
 
     def set_state(self, state):
         if self.state_machine: self.state_machine.transition(state, force=True)

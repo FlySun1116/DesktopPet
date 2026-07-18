@@ -3,3 +3,4 @@ Pillow>=10.3,<12
 python-dotenv>=1.0,<2
 PyInstaller>=6.8,<7
 pytest>=8.2,<9
+watchdog>=4.0,<7

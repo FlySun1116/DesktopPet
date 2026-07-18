@@ -18,6 +18,9 @@ class BehaviorController(QObject):
         self.window.set_state(PetState.IDLE)
 
     def choose(self):
+        application = getattr(self.window, "application", None)
+        if application is not None and getattr(application, "_chat_open", lambda: False)():
+            return
         if not self.config.get("auto_move", True) or self.window.dragging:
             return
         weights = self.config.get("behavior.probabilities", {})
