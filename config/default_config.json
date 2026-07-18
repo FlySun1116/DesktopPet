@@ -11,5 +11,13 @@
   "behavior": {
     "interval_ms": 7000,
     "probabilities": {"idle": 5, "walk": 5, "sit": 2, "sleep": 1, "wave": 1}
+  },
+  "chat": {
+    "base_url": "https://api.openai.com/v1",
+    "model": "gpt-4o-mini",
+    "system_prompt": "你是一个可爱、简洁的桌宠助手。",
+    "temperature": 0.7,
+    "timeout_seconds": 60,
+    "max_context_rounds": 8
   }
 }

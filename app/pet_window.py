@@ -21,7 +21,7 @@ class PetWindow(QWidget):
         self.player.frame_changed.connect(self._show_frame)
         self.player.finished.connect(lambda _name: self.set_state(PetState.IDLE))
         self.walk_timer = QTimer(self, timeout=self._walk_step)
-        self.click_timer = QTimer(self, singleShot=True, interval=220, timeout=lambda: self.set_state(PetState.SURPRISED))
+        self.click_timer = QTimer(self, singleShot=True, interval=220, timeout=self._on_single_click)
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setWindowFlag(Qt.FramelessWindowHint); self.setWindowFlag(Qt.Tool)
         self.apply_settings(first=True)
@@ -86,12 +86,16 @@ class PetWindow(QWidget):
     def mouseDoubleClickEvent(self, event):
         if event.button() == Qt.LeftButton: self.click_timer.stop(); self.set_state(PetState.HAPPY)
 
+    def _on_single_click(self):
+        if self.application:
+            self.application.show_chat()
+
     def contextMenuEvent(self, event):
         menu = QMenu(self)
         actions = [("挥手", PetState.WAVE), ("坐下", PetState.SIT), ("睡觉", PetState.SLEEP), ("随机动作", random.choice([PetState.WAVE, PetState.HAPPY, PetState.SURPRISED]))]
         for text, state in actions: menu.addAction(text, lambda checked=False, s=state: self.set_state(s))
         menu.addSeparator(); menu.addAction("暂停自动行为", self.application.behavior.pause); menu.addAction("恢复自动行为", self.application.behavior.resume)
-        menu.addAction("重置位置", self.reset_position); menu.addAction("设置", self.application.show_settings)
+        menu.addAction("AI 聊天", self.application.show_chat); menu.addAction("重置位置", self.reset_position); menu.addAction("设置", self.application.show_settings)
         menu.addAction("关于", lambda: QMessageBox.about(self, "关于", "真人动漫形象桌宠 1.0")); menu.addAction("退出", self.application.quit)
         menu.exec(event.globalPos())
 

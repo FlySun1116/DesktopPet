@@ -75,6 +75,26 @@ python scripts/build_character_preview.py
 
 设置窗口可调整自动移动、角色缩放、移动速度、动画速度、始终置顶、开机启动及角色位置。默认配置保持只读；用户配置保存到 `%APPDATA%\AnimePersonDesktopPet\user_config.json`。损坏或缺字段时回退默认值。
 
+## AI 聊天
+
+左键单击桌宠，或通过右键菜单/托盘菜单打开“AI 聊天”小窗。聊天使用 OpenAI 兼容的流式 `chat/completions` 接口，支持 OpenAI、DeepSeek、硅基流动等兼容服务。
+
+首次运行前可复制 `.env.example` 为 `.env`，也可以直接在设置窗口填写 API Key 和 API 地址。设置窗口会更新项目根目录的 `.env`，修改后立即生效：
+
+```dotenv
+DESKTOP_PET_API_KEY='你的密钥'
+DESKTOP_PET_BASE_URL='https://api.openai.com/v1'
+```
+
+`.env` 已加入 `.gitignore`，不会被 Git 提交，但其中的密钥仍为本机明文，请勿分享该文件。打包版本将 `.env` 放到 `%APPDATA%\AnimePersonDesktopPet`，避免向安装目录写入。
+
+设置窗口还可修改 System Prompt、温度、超时和上下文轮数；点击“从 API 获取模型”会请求兼容接口的 `/models`，模型下拉框仍支持手动填写。常见地址示例：
+
+- OpenAI：`https://api.openai.com/v1`
+- DeepSeek：`https://api.deepseek.com/v1`
+
+聊天记录仅保留在当前进程内存中，关闭应用后清空。
+
 ## 测试与素材验证
 
 ```powershell

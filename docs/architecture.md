@@ -11,6 +11,7 @@ Application
 ├─ PetStateMachine ← BehaviorController / 鼠标事件
 ├─ AnimationPlayer ← 状态变化，输出当前 QPixmap
 ├─ PetWindow ← 帧、拖拽、边界与菜单
+├─ ChatClient / ChatWindow ← OpenAI 兼容流式聊天（密钥从 .env 加载）
 ├─ TrayManager / SettingsWindow
 └─ ResourceManager / ScreenManager / StartupManager
 ```
@@ -21,13 +22,15 @@ Application
 
 拖拽开始进入 `DRAGGED`；移动位置经当前显示器可用区域钳制；释放后依据离“地面”的距离进入 `FALL` 或 `IDLE`。行走触边由屏幕服务报告，控制器改变方向，播放器仅处理水平镜像。
 
+单击桌宠（未拖拽）打开非模态聊天窗；双击仍触发 `HAPPY`。聊天请求通过 `QNetworkAccessManager` 异步发送，不阻塞动画与拖拽。API 密钥和地址从 `.env` 加载，设置窗口可即时更新，并可调用 `/models` 获取模型列表；会话历史仅驻留内存，取消或失败时不写入半截助手回复。
+
 ## 状态优先级与冲突
 
 `DRAGGED` 具有交互优先级。`SURPRISED`、`WAVE`、`HAPPY`、`FALL` 属于单次动作，结束后回到 `IDLE` 或合法上下文状态。`SLEEP` 可被点击唤醒。行为控制器必须使用单一调度计时器并设置最小切换间隔，避免多个计时器同时写状态。
 
 ## 路径与持久化
 
-只读资源通过统一函数解析：源码模式以项目根为基准，PyInstaller 模式以 `_MEIPASS`/可执行文件资源目录为基准。用户配置、日志和缓存位于 `%APPDATA%\AnimePersonDesktopPet`，不得写入安装目录。角色动作路径始终相对 `character.json` 解析。
+只读资源通过统一函数解析：源码模式以项目根为基准，PyInstaller 模式以 `_MEIPASS`/可执行文件资源目录为基准。源码运行时 `.env` 位于项目根目录；打包运行时 `.env`、用户配置、日志和缓存位于 `%APPDATA%\AnimePersonDesktopPet`，不得写入安装目录。角色动作路径始终相对 `character.json` 解析。
 
 ## 可测试性
 
